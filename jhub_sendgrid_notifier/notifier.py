@@ -29,7 +29,7 @@ class SendGridNotifier(Notifier):
         if not self.api_key:
             self.log.error("The API key is not set")
             return
-        if not self.from_address:
+        if not self.from_mail:
             self.log.error("E-mail address for From field is not set")
             return
         from_email = From(self.from_mail)
