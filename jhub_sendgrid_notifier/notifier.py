@@ -37,7 +37,7 @@ class SendGridNotifier(Notifier):
         for to_user in to:
             to_email = To(to_user.mail_address)
             mail = Mail(from_email, to_email, title, content)
-            response = sg.client.mail.send.post.send(request_body=mail.get())
+            response = sg.client.mail.send.post(request_body=mail.get())
             self.log.info("Processed: %s, %d, %r" % (to_user.mail_address,
                                                      response.status_code,
                                                      response.body))
