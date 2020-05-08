@@ -31,13 +31,13 @@ class SendGridNotifier(Notifier):
         if not self.from_mail:
             self.log.error("E-mail address for From field is not set")
             return
-        sendgrid_client = SendGridAPIClient(api_key=self.api_key)
+        sg = SendGridAPIClient(api_key=self.api_key)
         from_email = From(self.from_mail)
         content = Content("text/plain", body)
         for to_user in to:
             to_email = To(to_user.mail_address)
             mail = Mail(from_email, to_email, title, content)
-            response = sendgrid_client.send(request_body=mail)
-            self.log.info("Processed: %s, %r, %d" % (to_user.mail_address,
-                                                     response.body,
-                                                     response.status_code))
+            response = sg.client.mail.send.post.send(request_body=mail.get())
+            self.log.info("Processed: %s, %d, %r" % (to_user.mail_address,
+                                                     response.status_code,
+                                                     response.body))
