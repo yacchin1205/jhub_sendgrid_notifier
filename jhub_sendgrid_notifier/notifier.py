@@ -12,12 +12,14 @@ class SendGridNotifier(Notifier):
     """
 
     api_key = Unicode(
+        config=True,
         help="""
         The API key of SendGrid
         """
     )
 
     from_mail = Unicode(
+        config=True,
         help="""
         E-mail address for From field
         """
