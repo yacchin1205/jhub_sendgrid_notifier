@@ -1,4 +1,3 @@
-
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Content, Mail, From, To
 from jupyterhub.notifier import Notifier
@@ -32,6 +31,7 @@ class SendGridNotifier(Notifier):
         if not self.from_mail:
             self.log.error("E-mail address for From field is not set")
             return
+        sendgrid_client = SendGridAPIClient(api_key=self.api_key)
         from_email = From(self.from_mail)
         content = Content("text/plain", body)
         for to_user in to:
