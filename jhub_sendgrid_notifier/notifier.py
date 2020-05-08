@@ -34,10 +34,10 @@ class SendGridNotifier(Notifier):
             return
         from_email = From(self.from_mail)
         content = Content("text/plain", body)
-        for to_addr in to:
-            to_email = To(to_addr)
+        for to_user in to:
+            to_email = To(to_user.mail_address)
             mail = Mail(from_email, to_email, title, content)
             response = sendgrid_client.send(request_body=mail)
-            self.log.info("Processed: %s, %r, %d" % (to_addr,
+            self.log.info("Processed: %s, %r, %d" % (to_user.mail_address,
                                                      response.body,
                                                      response.status_code))
